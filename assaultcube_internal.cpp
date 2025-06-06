@@ -58,11 +58,13 @@ DWORD WINAPI HackThread(HMODULE hModule) // making a thread, to module handle
             if (bRecoil)
             {
                 // Nop memory for 10 bytes
+                // Barney style - Hey compiler, i know theres running code here
+                // Tell this code it now has no operation
                 mem::nop((BYTE*)(modbase + 0x63786), 10);
             }
             else
             {
-                // Set memory back to what it used to be
+                // Replace that no operation back to its original code bytes
                 mem::patch((BYTE*)(modbase + 0x63786), (BYTE*)"\x50\x8d\x4c\x24\x1c\x51\x8b\xce\xff\xd2", 10);
             }
         }
